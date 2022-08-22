@@ -8,6 +8,7 @@ import java.time.Instant;
 import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
+import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -22,7 +23,8 @@ import org.springframework.web.bind.annotation.ResponseStatus;
 import org.springframework.web.bind.annotation.RestController;
 
 @RestController
-@RequestMapping("/api/v1.0")
+@RequestMapping("/personas")
+@CrossOrigin(origins = "http://localhost:4200")
 public class Controller {
     
     @Autowired
@@ -82,10 +84,12 @@ public class Controller {
     */
     
     
+    
+    
     ///
     //Endpoints.
     //Metódo para Crear una nueva Persona.
-    @PostMapping ("/new/persona")
+    @PostMapping ("/new")
     //@RequestBody envia a la persona (pers) en el Body de un JSON.
     public void agregarPersona (@RequestBody Persona pers) {
         //listaPersonas.add(pers);
@@ -96,7 +100,7 @@ public class Controller {
     
     //Metódo para mostrar la Lista de Personas.
     //La cual actuara cuando estemos en ".../ver/personas" en la URL.
-    @GetMapping ("/ver/personas")
+    @GetMapping ("/ver")
     @ResponseBody //Esta funcion a continuacion, Devolvera la lista de personas
     //              y @ResponseBody tomara esa lista del return para pasarla
     //              en el Body del JSON.
@@ -108,14 +112,14 @@ public class Controller {
     
     
     //Metódo para borrar una persona en la Tabla.
-    @DeleteMapping ("/delete/{id}")
+    @DeleteMapping ("/borrar/{id}")
     public void borrarPersona (@PathVariable Long id){
         persoServ.borrarPersona(id);
     }
     
     
     
-    @PutMapping ("/modificar")
+    @PutMapping ("/edit")
     public void modificarPersona (@RequestBody Persona pers){
         persoServ.crearPersona(pers);
     }
